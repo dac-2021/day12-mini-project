@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      {location.pathname !== "/login" && (
+      {!["/login", "/signup"].includes(location.pathname) && (
         <>
           <Link to="/">Page1 </Link>
           <Link to="/page2">Page2 </Link>
@@ -38,7 +38,20 @@ function Page1() {
 }
 
 function Page2() {
-  return <div>Page2</div>;
+  const history = useHistory();
+
+  const signOut = () => {
+    history.push("/login");
+  };
+
+  return (
+    <div>
+      Page2
+      <div>
+        <button onClick={signOut}>Sign Out</button>
+      </div>
+    </div>
+  );
 }
 
 function Page3() {
@@ -52,15 +65,21 @@ function Login() {
     history.push("/");
   };
 
+  const gotoRegister = () => {
+    history.push("/signup");
+  };
+
   return (
     <div>
       <div>Login Page Ui</div>
       <button onClick={processLogin}>Login</button>
+      <button onClick={gotoRegister}>Go To Regsiter</button>
     </div>
   );
 }
 
 function Signup() {
+  const history = useHistory();
   const [user, setUser] = useState({
     name: "",
     password: "",
@@ -81,6 +100,10 @@ function Signup() {
 
     console.log("user", user);
     localStorage.setItem("app-user", JSON.stringify(user));
+  };
+
+  const backtoLogin = () => {
+    history.push("/login");
   };
 
   return (
@@ -118,6 +141,10 @@ function Signup() {
 
       <div>
         <button onClick={regiserUser}>Register</button>
+      </div>
+
+      <div>
+        <button onClick={backtoLogin}>Back to Login</button>
       </div>
     </div>
   );
