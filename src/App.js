@@ -1,18 +1,34 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function App() {
-  return <Signup />;
+  return (
+    <Router>
+      <Link to="/">Page1 </Link>
+      <Link to="/page2">Page2 </Link>
+      <Link to="/page3">Page3 </Link>
+
+      <Route exact path="/" component={Page1} />
+      <Route path="/page1" component={Page1} />
+      <Route path="/page2" component={Page2} />
+      <Route path="/page3" component={Page3} />
+    </Router>
+  );
 }
 
-/**
- * User {
- *  name: '',
- *  password :''
- *  email : ''
- *  mobile: ''
- * }
- */
+function Page1() {
+  return <div>Page1</div>;
+}
+
+function Page2() {
+  return <div>Page2</div>;
+}
+
+function Page3() {
+  return <div>Page3</div>;
+}
+
 function Signup() {
   const [user, setUser] = useState({
     name: "",
