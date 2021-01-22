@@ -60,9 +60,31 @@ function Page3() {
 
 function Login() {
   const history = useHistory();
+  const [user, setUser] = useState({ name: "", password: "" });
+
+  const syncName = (e) => setUser({ ...user, name: e.target.value });
+  const syncPassword = (e) =>
+    setUser({ ...user, password: e.target.value });
 
   const processLogin = () => {
-    history.push("/");
+    if (user.name === "" || user.password === "") {
+      alert("Fail");
+      return;
+    }
+
+    // time for validation with localstorage
+    const localUser = localStorage.getItem("app-user");
+    const localUserObj = JSON.parse(localUser);
+
+    if (
+      user.name === localUserObj.name &&
+      user.password === localUserObj.password
+    ) {
+      console.log(user, localUserObj);
+      history.push("/");
+    } else {
+      alert("Incorrect Credentials");
+    }
   };
 
   const gotoRegister = () => {
@@ -71,9 +93,28 @@ function Login() {
 
   return (
     <div>
-      <div>Login Page Ui</div>
-      <button onClick={processLogin}>Login</button>
-      <button onClick={gotoRegister}>Go To Regsiter</button>
+      <h3>Login Page Ui</h3>
+
+      <div>
+        Username{" "}
+        <input type="text" value={user.name} onChange={syncName} />
+      </div>
+      <div>
+        Password{" "}
+        <input
+          type="password"
+          value={user.password}
+          onChange={syncPassword}
+        />
+      </div>
+
+      <div>
+        <button onClick={processLogin}>Process Login</button>
+      </div>
+
+      <div>
+        <button onClick={gotoRegister}>Go To Regsiter</button>
+      </div>
     </div>
   );
 }
