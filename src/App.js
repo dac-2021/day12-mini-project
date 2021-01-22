@@ -1,19 +1,35 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  useLocation,
+  useHistory,
+} from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+  console.log(location);
+
   return (
-    <Router>
-      <Link to="/">Page1 </Link>
-      <Link to="/page2">Page2 </Link>
-      <Link to="/page3">Page3 </Link>
+    <>
+      {location.pathname !== "/login" && (
+        <>
+          <Link to="/">Page1 </Link>
+          <Link to="/page2">Page2 </Link>
+          <Link to="/page3">Page3 </Link>
+        </>
+      )}
+
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
 
       <Route exact path="/" component={Page1} />
       <Route path="/page1" component={Page1} />
       <Route path="/page2" component={Page2} />
       <Route path="/page3" component={Page3} />
-    </Router>
+    </>
   );
 }
 
@@ -27,6 +43,21 @@ function Page2() {
 
 function Page3() {
   return <div>Page3</div>;
+}
+
+function Login() {
+  const history = useHistory();
+
+  const processLogin = () => {
+    history.push("/");
+  };
+
+  return (
+    <div>
+      <div>Login Page Ui</div>
+      <button onClick={processLogin}>Login</button>
+    </div>
+  );
 }
 
 function Signup() {
