@@ -15,11 +15,19 @@ function App() {
   return (
     <>
       {!["/login", "/signup"].includes(location.pathname) && (
-        <>
-          <Link to="/">Page1 </Link>
-          <Link to="/page2">Page2 </Link>
-          <Link to="/page3">Page3 </Link>
-        </>
+        <div className="row bg-dark" style={{ height: "65px" }}>
+          <div className="col d-flex align-items-center justify-content-end">
+            <Link to="/">
+              <button className="btn btn-light btn-sm mr-1">PAGE1</button>
+            </Link>
+            <Link to="/page2">
+              <button className="btn btn-light btn-sm mr-1">PAGE2</button>{" "}
+            </Link>
+            <Link to="/page3">
+              <button className="btn btn-light btn-sm">PAGE3</button>{" "}
+            </Link>
+          </div>
+        </div>
       )}
 
       <Route path="/login" component={Login} />
@@ -34,7 +42,14 @@ function App() {
 }
 
 function Page1() {
-  return <div>Page1</div>;
+  return (
+    <div
+      className="bg-primary text-light d-flex justify-content-center align-items-center"
+      style={{ height: "100vh", fontSize: "2rem" }}
+    >
+      Page1
+    </div>
+  );
 }
 
 function Page2() {
