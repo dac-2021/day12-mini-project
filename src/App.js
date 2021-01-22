@@ -75,6 +75,7 @@ function Page3() {
 
 function Login() {
   const history = useHistory();
+  const [loginProgress, setLoginProgress] = useState(false);
   const [user, setUser] = useState({ name: "", password: "" });
 
   const syncName = (e) => setUser({ ...user, name: e.target.value });
@@ -87,19 +88,23 @@ function Login() {
       return;
     }
 
-    // time for validation with localstorage
-    const localUser = localStorage.getItem("app-user");
-    const localUserObj = JSON.parse(localUser);
+    setLoginProgress(true);
 
-    if (
-      user.name === localUserObj.name &&
-      user.password === localUserObj.password
-    ) {
-      console.log(user, localUserObj);
-      history.push("/");
-    } else {
-      alert("Incorrect Credentials");
-    }
+    setTimeout(() => {
+      // time for validation with localstorage
+      const localUser = localStorage.getItem("app-user");
+      const localUserObj = JSON.parse(localUser);
+
+      if (
+        user.name === localUserObj.name &&
+        user.password === localUserObj.password
+      ) {
+        console.log(user, localUserObj);
+        history.push("/");
+      } else {
+        alert("Incorrect Credentials");
+      }
+    }, 2000);
   };
 
   const gotoRegister = () => {
@@ -122,6 +127,8 @@ function Login() {
           onChange={syncPassword}
         />
       </div>
+
+      {loginProgress && <div class="spinner-border" role="status"></div>}
 
       <div>
         <button onClick={processLogin}>Process Login</button>
