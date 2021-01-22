@@ -100,6 +100,13 @@ function Signup() {
 
     console.log("user", user);
     localStorage.setItem("app-user", JSON.stringify(user));
+
+    setUser({
+      name: "",
+      password: "",
+      email: "",
+      mobile: "",
+    });
   };
 
   const backtoLogin = () => {
